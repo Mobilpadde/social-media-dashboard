@@ -19,6 +19,7 @@ module.exports = {
         /* ... */
     },
     buildOptions: {
+        out: "dist/",
         clean: true,
         baseUrl: "/social-media-dashboard/",
         metaDir: "static/snowpack",
