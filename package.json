@@ -22,7 +22,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged && run-s build"
+            "pre-commit": "pretty-quick --staged && run-s build && sh replace.sh && git add -A ."
         }
     }
 }

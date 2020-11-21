@@ -19,7 +19,9 @@ module.exports = {
         /* ... */
     },
     buildOptions: {
-        out: "docs",
+        out: "docs/",
+        baseUrl: "/social-media-dashboard",
+        clean: true,
     },
     proxy: {
         /* ... */
