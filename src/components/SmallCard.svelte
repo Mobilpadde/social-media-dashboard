@@ -3,7 +3,7 @@
   export let icon = "";
   export let text = "";
   export let total = 0;
-  export let change = 0;
+  export let change = "0.0";
 </script>
 
 <style>
@@ -73,7 +73,6 @@
         class="change"
         src="/images/icon-{changeGoes}.svg"
         alt="{changeGoes}-logo" />
-      {change}
-      Today</span>
+      {change}%</span>
   </div>
 </div>

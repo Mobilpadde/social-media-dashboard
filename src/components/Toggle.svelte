@@ -40,7 +40,7 @@
     top: 0.125rem;
     left: 0.125rem;
     border-radius: 50%;
-    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) left 250ms;
+    transition: var(--ease) left 250ms;
   }
 
   .toggle:checked {

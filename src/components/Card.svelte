@@ -1,12 +1,11 @@
 <script>
-  export let changeGoes = "";
   export let icon = "";
   export let type = "";
   export let username = "";
   export let total = 0;
-  export let change = 0;
 
   $: text = type == "yt" ? "Subscribers" : "Followers";
+  $: text = type == "fb" ? "Likes" : text;
 </script>
 
 <style>
@@ -47,11 +46,6 @@
     height: 2rem;
   }
 
-  img.change {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-
   .change {
     font-weight: 700;
   }
@@ -72,16 +66,9 @@
   </div>
 
   <div class="section">
-    <h2>{total}</h2>
+    <h2>
+      {total.toLocaleString('en-UK', { minimumFractionDigits: 0 }).toString()}
+    </h2>
     <span class="followers">{text}</span>
-  </div>
-
-  <div class="section">
-    <span class="change {changeGoes}"><img
-        class="change"
-        src="/images/icon-{changeGoes}.svg"
-        alt="{changeGoes}-logo" />
-      {change}
-      Today</span>
   </div>
 </div>

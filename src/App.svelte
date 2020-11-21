@@ -7,11 +7,13 @@
   import Card from "./components/Card";
   import SmallCard from "./components/SmallCard";
 
-  const generateEvents = (n) =>
-    new Array(n)
-      .fill({})
-      .map((x) => ({ total: +Math.random().toString().slice(4, 6) }))
-      .map((x) => ({ ...x, change: +Math.random().toString().slice(4, 5) }))
+  const generateEvents = (n) => {
+    const arr = new Array(n)
+      .fill({ change: "0.0", changeGoes: "up" })
+      .map((x) => ({
+        ...x,
+        total: +Math.random().toString().slice(4, 7),
+      }))
       .map((x, i) => ({
         ...x,
         text: ["Likes", "Retweets", "Profile Views", "Total Views"][~~(i % n)],
@@ -19,8 +21,22 @@
       .map((x, i) => ({
         ...x,
         icon: ["facebook", "twitter", "instagram", "youtube"][~~(i % n)],
-      }))
-      .map((x) => ({ ...x, changeGoes: Math.random() > 0.5 ? "up" : "down" }));
+      }));
+
+    arr.forEach((x, i) => {
+      if (i == 0) return;
+
+      let change =
+        ((x.total + 1 - (arr[i % 4].total + 1)) / (arr[i % 4].total + 1)) * 100;
+
+      const changeGoes = x.change >= 0 ? "up" : "down";
+      change = change.toFixed(2);
+
+      x = { ...x, changeGoes, change };
+    });
+
+    return arr;
+  };
 
   let dark = true;
 
@@ -38,32 +54,24 @@
       type: "fb",
       username: "@Mobilpadde",
       total: 0,
-      changeGoes: "up",
-      change: 0,
     },
     {
       icon: "twitter",
       type: "tw",
       username: "@Mobilpadde",
       total: 0,
-      changeGoes: "up",
-      change: 0,
     },
     {
       icon: "instagram",
       type: "ig",
       username: "@Mobilpadde",
       total: 0,
-      changeGoes: "up",
-      change: 0,
     },
     {
       icon: "youtube",
       type: "yt",
       username: "Mobilpadde",
       total: 0,
-      changeGoes: "up",
-      change: 0,
     },
   ];
 
@@ -72,6 +80,8 @@
     [new Date().setDate(today.getDate() - 1)]: generateEvents(4),
     [new Date().setDate(today.getDate() - 2)]: generateEvents(4),
     [new Date().setDate(today.getDate() - 3)]: generateEvents(4),
+    // [new Date().setDate(today.getDate() - 4)]: generateEvents(4),
+    // [new Date().setDate(today.getDate() - 5)]: generateEvents(4),
   };
 
   $: {
@@ -79,14 +89,10 @@
       users[i].total = 0;
       users[i].change = 0;
 
-      for (let j of Object.keys(events)) {
-        const e = events[j].find((y) => y.icon === users[i].icon);
-
+      for (let d of Object.keys(events)) {
+        const e = events[d].find((y) => y.icon === users[i].icon);
         users[i].total += e.total;
-        users[i].change += e.change * (e.changeGoes === "up" ? 1 : -1);
       }
-
-      users[i].changeGoes = users[i].change >= 0 ? "up" : "down";
     }
   }
 
@@ -94,19 +100,25 @@
     const t = () => Math.random() * 4000 + 1000;
     let next = true;
     const _ = () => {
-      Object.entries(events).forEach(([d]) => {
-        events[d] = events[d].map((x) => {
-          const add = x.changeGoes === "up" ? 1 : -1;
+      const [d] = Object.entries(events)[0];
+      events[d] = events[d].map((x, i) => {
+        let add = x.changeGoes === "up" ? 1 : -1;
+        if (Math.random() > 0.5) add *= -1;
 
-          x.change += add;
-          x.total += add;
-          return x;
-        });
+        x.total += add;
+        x.change =
+          ((x.total + 1 - (events[Object.keys(events)[1]][i % 4].total + 1)) /
+            (events[Object.keys(events)[1]][i % 4].total + 1)) *
+          100;
+
+        x.changeGoes = x.change >= 0 ? "up" : "down";
+        x.change = x.change.toFixed(2);
+        return x;
       });
 
       if (next) setTimeout(_, t());
     };
-    setTimeout(_, t());
+    setTimeout(_, 1);
 
     return () => (next = false);
   });
@@ -202,20 +214,14 @@
 
   <div class="section">
     {#each users as x}
-      <Card
-        changeGoes={x.changeGoes}
-        icon={x.icon}
-        type={x.type}
-        username={x.username}
-        total={x.total}
-        change={x.change} />
+      <Card icon={x.icon} type={x.type} username={x.username} total={x.total} />
     {/each}
   </div>
 
   <div class="title-section">
     {#each Object.entries(events) as entries}
       <h3>
-        {new Intl.DateTimeFormat('uk', {
+        {new Intl.DateTimeFormat('en-UK', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
