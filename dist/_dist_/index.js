@@ -1,1 +1,0 @@
-import o from"../static/snowpack/env.js";import.meta.env=o;import p from"./App.js";var t=new p({target:document.body});export default t;import.meta.hot&&(import.meta.hot.accept(),import.meta.hot.dispose(()=>{t.$destroy()}));
