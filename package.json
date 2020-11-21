@@ -2,13 +2,12 @@
     "scripts": {
         "start": "snowpack dev",
         "dev": "snowpack dev",
-        "build": "snowpack build"
+        "build": "NODE_ENV=production snowpack build"
     },
     "dependencies": {
         "svelte": "^3.24.0"
     },
     "devDependencies": {
-        "@snowpack/app-scripts-svelte": "^1.9.2",
         "@snowpack/plugin-dotenv": "^2.0.4",
         "@snowpack/plugin-optimize": "^0.2.9",
         "@snowpack/plugin-svelte": "^3.3.0",
@@ -22,7 +21,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged && run-s build && sh replace.sh && git add -A ."
+            "pre-commit": "pretty-quick --staged && run-s build && git add -A ."
         }
     }
 }

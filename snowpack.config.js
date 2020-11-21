@@ -20,8 +20,11 @@ module.exports = {
     },
     buildOptions: {
         out: "docs/",
-        baseUrl: "/social-media-dashboard",
         clean: true,
+        baseUrl: "/social-media-dashboard/",
+        metaDir: "static/snowpack",
+        webModulesUrl: "web",
+        sourceMaps: false,
     },
     proxy: {
         /* ... */
