@@ -2,8 +2,7 @@
     "scripts": {
         "start": "snowpack dev",
         "dev": "snowpack dev",
-        "build": "NODE_ENV=production snowpack build",
-        "deploy": "gh-pages -d dist"
+        "build": "NODE_ENV=production snowpack build"
     },
     "dependencies": {
         "svelte": "^3.24.0"
@@ -23,8 +22,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged && git add -A .",
-            "pre-push": "run-s build deploy"
+            "pre-commit": "pretty-quick --staged && run-s build && git add -A ."
         }
     }
 }
