@@ -21,7 +21,7 @@ module.exports = {
     buildOptions: {
         out: "dist/",
         clean: true,
-        baseUrl: "/social-media-dashboard/",
+        baseUrl: "/",
         metaDir: "static/snowpack",
         webModulesUrl: "web",
         sourceMaps: false,
