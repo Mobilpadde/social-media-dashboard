@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+if(typeof document!="undefined"){const r=`@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 :root {
   --toggle-bg-1: hsl(230, 22%, 74%);
@@ -98,3 +98,4 @@ body.dark {
   --card-top-border-1: var(--ig-1);
   --card-top-border-2: var(--ig-2);
 }
+`,n=document.createElement("style"),e=document.createTextNode(r);n.type="text/css",n.appendChild(e),document.head.appendChild(n)}
